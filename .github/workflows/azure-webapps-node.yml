@@ -43,7 +43,7 @@ jobs:
         cache: 'npm'
 
     - name: npm install, build, and test
-      working-directory: ./frontend/,y-portfolio-site-app
+      working-directory: ./frontend/my-portfolio-site-app
       run: |
         npm install
         npm run build --if-present
