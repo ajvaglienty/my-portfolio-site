@@ -36,7 +36,6 @@ stages:
         popd
       displayName: 'npm test'
 
-    - job: Package
       steps:
       - task: ArchiveFiles@2
         inputs:
