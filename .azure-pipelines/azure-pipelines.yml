@@ -36,14 +36,17 @@ stages:
         popd
       displayName: 'npm test'
 
-    - script: ls -la $(uiBuild)
-      displayName: 'List build directory content'
+    - publish: $(uiBuild)
+      artifact: myBuildArtifact
 
 
 - stage: Package
   jobs:
     - job: Package
       steps:
+      - download: current
+        artifact: myBuildArtifact
+
       - task: ArchiveFiles@2
         inputs:
           rootFolderOrFile: '$(uiBuild)'
