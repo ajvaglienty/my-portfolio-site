@@ -32,7 +32,6 @@ stages:
 
     - script: |
         pushd $(uiSource)
-        cd frontend/my-portfolio-site-app
         npm test
         popd
       displayName: 'npm test'
