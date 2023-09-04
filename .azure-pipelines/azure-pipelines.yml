@@ -36,6 +36,10 @@ stages:
         popd
       displayName: 'npm test'
 
+    - script: ls -la $(uiBuild)
+      displayName: 'List build directory content'
+
+
 - stage: Package
   jobs:
     - job: Package
