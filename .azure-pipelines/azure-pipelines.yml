@@ -1,6 +1,10 @@
 trigger:
 - main
 
+variables:
+  uiSource: 'frontend/my-portfolio-site-app'
+  uiBuild: '$(uiSource)/build'
+
 pool:
   vmImage: 'ubuntu-latest'
 
@@ -15,18 +19,22 @@ stages:
       displayName: 'Install Node.js'
 
     - script: |
-        cd frontend/my-portfolio-site-app
+        pushd $(uiSource)
         npm install
+        popd
       displayName: 'npm install'
 
     - script: |
-        cd frontend/my-portfolio-site-app
+        pushd $(uiSource)
         npm run build
+        popd
       displayName: 'npm build'
 
     - script: |
+        pushd $(uiSource)
         cd frontend/my-portfolio-site-app
         npm test
+        popd
       displayName: 'npm test'
 
 - stage: Package
@@ -35,10 +43,10 @@ stages:
       steps:
       - task: ArchiveFiles@2
         inputs:
-          rootFolderOrFile: '$(Build.BinariesDirectory)'
+          rootFolderOrFile: '$(uiBuild)'
           includeRootFolder: true
           archiveType: 'zip'
-          archiveFile: $(Build.ArtifactStagingDirectory)/MyApp.zip
+          archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
           replaceExistingArchive: true
 
       - task: PublishBuildArtifacts@1
