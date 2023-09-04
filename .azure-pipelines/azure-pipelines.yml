@@ -27,7 +27,3 @@ jobs:
       npm test
     displayName: 'npm test'
 
-  - script: |
-      cd frontend/my-portfolio-site-app
-      npm start
-    displayName: 'npm start'
