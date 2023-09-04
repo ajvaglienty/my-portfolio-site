@@ -36,17 +36,16 @@ stages:
         popd
       displayName: 'npm test'
 
-      steps:
-      - task: ArchiveFiles@2
-        inputs:
-          rootFolderOrFile: '$(uiBuild)'
-          includeRootFolder: false
-          archiveType: 'zip'
-          archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
-          replaceExistingArchive: true
+    - task: ArchiveFiles@2
+      inputs:
+        rootFolderOrFile: '$(uiBuild)'
+        includeRootFolder: false
+        archiveType: 'zip'
+        archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+        replaceExistingArchive: true
 
-      - task: PublishBuildArtifacts@1
-        inputs:
-          pathtoPublish: $(Build.ArtifactStagingDirectory)
-          artifactName: 'drop'
-          publishLocation: 'Container'
+    - task: PublishBuildArtifacts@1
+      inputs:
+        pathtoPublish: $(Build.ArtifactStagingDirectory)
+        artifactName: 'drop'
+        publishLocation: 'Container'
