@@ -4,6 +4,9 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
+jobs:
+- job: BuildFrontend
+  workingDirectory: 'frontend/my-portfolio-site-app'
 steps:
 - task: NodeTool@0
   inputs:
