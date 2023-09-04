@@ -4,26 +4,45 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-jobs:
-- job: BuildFrontend
-  steps:
-  - task: NodeTool@0
-    inputs:
-      versionSpec: '14.x'
-    displayName: 'Install Node.js'
+stages:
+- stage: Build
+  jobs:
+  - job: BuildFrontend
+    steps:
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '14.x'
+      displayName: 'Install Node.js'
 
-  - script: |
-      cd frontend/my-portfolio-site-app
-      npm install
-    displayName: 'npm install'
+    - script: |
+        cd frontend/my-portfolio-site-app
+        npm install
+      displayName: 'npm install'
 
-  - script: |
-      cd frontend/my-portfolio-site-app
-      npm run build
-    displayName: 'npm build'
+    - script: |
+        cd frontend/my-portfolio-site-app
+        npm run build
+      displayName: 'npm build'
 
-  - script: |
-      cd frontend/my-portfolio-site-app
-      npm test
-    displayName: 'npm test'
+    - script: |
+        cd frontend/my-portfolio-site-app
+        npm test
+      displayName: 'npm test'
 
+- stage: Package
+  jobs:
+    - job: Package
+      steps:
+      - task: ArchiveFiles@2
+        inputs:
+          rootFolderOrFile: '$(Build.BinariesDirectory)'
+          includeRootFolder: true
+          archiveType: 'zip'
+          archiveFile: $(Build.ArtifactStagingDirectory)/MyApp.zip
+          replaceExistingArchive: true
+
+      - task: PublishBuildArtifacts@1
+        inputs:
+          pathtoPublish: $(Build.ArtifactStagingDirectory)
+          artifactName: 'drop'
+          publishLocation: 'Container'
