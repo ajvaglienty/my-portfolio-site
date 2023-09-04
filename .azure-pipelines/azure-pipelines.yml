@@ -36,7 +36,7 @@ stages:
       - task: ArchiveFiles@2
         inputs:
           rootFolderOrFile: '$(Build.BinariesDirectory)'
-          includeRootFolder: true
+          includeRootFolder: false
           archiveType: 'zip'
           archiveFile: $(Build.ArtifactStagingDirectory)/MyApp.zip
           replaceExistingArchive: true
