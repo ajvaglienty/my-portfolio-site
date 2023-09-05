@@ -5,7 +5,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <p>
-          Hello Azure, it's Andrew.
+          Hello Azure, it's Andrew. Testing CI/CD.
         </p>
       </header>
     </div>
